@@ -2,7 +2,6 @@
 #include <QSettings>
 #include <QDir>
 #include "TCPLink.h"
-#include <QDataStream>
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +14,9 @@ int main(int argc, char *argv[])
 
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir::currentPath() + "/settings");
+
+    TCPLink client;
+    QObject::connect(&client, &TCPLink::finished, &a, &QCoreApplication::quit);
 
     return a.exec();
 }
